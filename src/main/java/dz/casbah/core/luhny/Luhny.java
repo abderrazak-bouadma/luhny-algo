@@ -10,13 +10,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Luhny {
 
-    private static final String NORMALIZED_SEP = " ";
     private static String backup;
-    private static final int DOUBLE = 2;
-    private static final int HAS_LESS_THAN_TWO_DIGITS = 9;
     private static final String SECRECT_FILTER = "X";
 
-    public static final void main(String[] args) {
+    public static void main(String[] args) {
         if (args == null || args.length != 1) {
             throw new IllegalArgumentException(hint());
         }
@@ -51,18 +48,14 @@ public class Luhny {
         if (!StringUtils.isBlank(s) && s.length() >= 4 && s.length() <= 16) {
             final String cleanedReversedString = cleanString(s);
             int sum = 0;
-            boolean even = true;
             for (int i = 0; i < cleanedReversedString.length(); i++) {
-                final String sDigit = cleanedReversedString.substring(i);
-                int digit = Integer.parseInt(sDigit);
-                if (even) {
-                    digit *= DOUBLE;
-                    if (digit > HAS_LESS_THAN_TWO_DIGITS) {
-                        final String s1 = String.valueOf(digit);
-                        digit = 0;
-                        for (int j = 0; j < s1.length(); j++) {
-                            digit += Integer.parseInt(s1.substring(j));
-                        }
+                int digit = Integer.parseInt(cleanedReversedString.substring(i));
+                digit *= 2;
+                if (digit > 9) {
+                    final String s1 = String.valueOf(digit);
+                    digit = 0;
+                    for (int j = 0; j < s1.length(); j++) {
+                        digit += Integer.parseInt(s1.substring(j));
                     }
                 }
                 sum += digit;
